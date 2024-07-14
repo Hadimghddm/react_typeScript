@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+// import { Layout } from 'antd';
+// import AppBar from './components/AppBar';
+// import Sidebar from './components/Sidebar';
+// import DataFetcher from './components/DataFetcher';
 import './App.css';
+import AppRouter from './Router';
 
-function App() {
+// const { Content } = Layout;
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <Layout style={{ minHeight: '100vh' }}>
+    //   <Sidebar />
+    //   <Layout>
+    //     <AppBar />
+    //     <Content style={{ padding: '0 24px 24px' }}>
+    //       <div
+    //         className="site-layout-background"
+    //         style={{
+    //           padding: 24,
+    //           margin: 0,
+    //           minHeight: 280,
+    //         }}
+    //       >
+    //         <DataFetcher />
+    //       </div>
+    //     </Content>
+    //   </Layout>
+    // </Layout>
+    <div>
+    <AppRouter />
+  </div>
   );
-}
+};
 
 export default App;
