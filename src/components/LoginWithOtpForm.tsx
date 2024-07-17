@@ -1,14 +1,16 @@
 // src/components/LoginWithOtpForm.tsx
-import React, { useState } from 'react';
-import { Form, Input, Button, Alert } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Alert, Statistic, Row, Col } from 'antd';
 import { loginWithOtp } from '../services/authService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginWithOtpForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [deadline, setDeadline] = useState(Date.now() + 3 * 60 * 1000); // 3 minutes from now
+  const [showRefreshLink, setShowRefreshLink] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -20,9 +22,7 @@ const LoginWithOtpForm: React.FC = () => {
       
       // Handle response, if login is successful, redirect to admin
       if (response.data.message === 'Login successfully!') {
-        console.log(":::::::::::::::::::::::::::::::::::");
         setSuccess('Login successfully!');
-        
         navigate('/admin');
       } else {
         setError('Invalid OTP');
@@ -31,6 +31,17 @@ const LoginWithOtpForm: React.FC = () => {
       setError('Failed to login');
     }
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (Date.now() > deadline) {
+        setShowRefreshLink(true);
+        clearInterval(timer);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [deadline]);
 
   return (
     <Form onFinish={handleLogin} layout="vertical">
@@ -43,9 +54,24 @@ const LoginWithOtpForm: React.FC = () => {
       {error && <Alert message={error} type="error" />}
       {success && <Alert message={success} type="success" />}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Login
-        </Button>
+        <Row gutter={16} align="middle">
+          <Col>
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
+          </Col>
+          <Col>
+            {showRefreshLink ? (
+              <Link to="/refresh-otp">Refresh OTP</Link>
+            ) : (
+              <Statistic.Countdown 
+                title="Time remaining"
+                value={deadline}
+                onFinish={() => setShowRefreshLink(true)}
+              />
+            )}
+          </Col>
+        </Row>
       </Form.Item>
     </Form>
   );

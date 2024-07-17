@@ -1,4 +1,3 @@
-// src/pages/RefreshOtpPage.tsx
 import React from 'react';
 import { Row, Col } from 'antd';
 import RefreshOtpForm from '../components/RefreshOtpForm';
