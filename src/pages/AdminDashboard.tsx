@@ -1,48 +1,69 @@
-// src/pages/AdminDashboard.tsx
-
-import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+import React from "react";
+import { Layout, Menu, Breadcrumb } from "antd";
+import {
+  UserSwitchOutlined,
+  UserOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
+} from "@ant-design/icons";
+import { Routes, Route, Link, useParams } from "react-router-dom";
+import UserManagement from "../components/user managment/UserManagement";
+import RoleManagement from "../components/role managment/RoleManagement";
 
 const { Header, Content, Sider } = Layout;
 
 const AdminDashboard: React.FC = () => {
-  const { '*': subPage } = useParams();  // Get the subpage path
+  const { "*": subPage } = useParams();
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header className="header">
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">Admin Panel</Menu.Item>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Header className="header" style={{ backgroundColor: '#003366', color: '#ffffff' }}>
+        <div className="logo" style={{ color: '#ffffff', fontSize: '24px' }}>Admin Panel</div>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["1"]}
+          style={{ backgroundColor: '#003366' }}
+        >
+          <Menu.Item key="1" style={{ color: '#ffffff' }}>Admin Panel</Menu.Item>
         </Menu>
       </Header>
       <Layout>
-        <Sider width={200} className="site-layout-background">
-          <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%', borderRight: 0 }}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link to="/admin/users">Users</Link>
+        <Sider width={200} className="site-layout-background" style={{ backgroundColor: '#f5f5f5' }}>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            style={{ height: "100%", borderRight: 0, backgroundColor: '#f5f5f5' }}
+          >
+            <Menu.Item key="1" icon={<UserOutlined />} style={{ color: '#003366' }}>
+              <Link to="/admin/users" style={{ color: '#003366' }}>Users</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<LaptopOutlined />}>
-              <Link to="/admin/settings">Settings</Link>
+            <Menu.Item key="2" icon={<UserSwitchOutlined />} style={{ color: '#003366' }}>
+              <Link to="/admin/roles" style={{ color: '#003366' }}>User Roles</Link>
             </Menu.Item>
-            <Menu.Item key="3" icon={<NotificationOutlined />}>
-              <Link to="/admin/notifications">Notifications</Link>
+            <Menu.Item key="3" icon={<LaptopOutlined />} style={{ color: '#003366' }}>
+              <Link to="/admin/settings" style={{ color: '#003366' }}>Settings</Link>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<NotificationOutlined />} style={{ color: '#003366' }}>
+              <Link to="/admin/notifications" style={{ color: '#003366' }}>Notifications</Link>
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+        <Layout style={{ padding: "0 24px 24px", backgroundColor: '#f5f5f5' }}>
+          <Breadcrumb style={{ margin: "16px 0", color: '#003366' }}>
             <Breadcrumb.Item>Admin</Breadcrumb.Item>
-            <Breadcrumb.Item>{subPage ? subPage : 'Dashboard'}</Breadcrumb.Item>
+            <Breadcrumb.Item>{subPage ? subPage : "Dashboard"}</Breadcrumb.Item>
           </Breadcrumb>
-          <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
+          <Content style={{ padding: 24, margin: 0, minHeight: 280, backgroundColor: '#ffffff' }}>
             <Routes>
-              <Route path="/" element={<h2>Welcome to the Admin Dashboard</h2>} />
-              <Route path="users" element={<h2>User Management</h2>} />
-              <Route path="settings" element={<h2>Settings</h2>} />
-              <Route path="notifications" element={<h2>Notifications</h2>} />
+              <Route
+                path="/"
+                element={<h2 style={{ color: '#003366' }}>Welcome to the Admin Dashboard</h2>}
+              />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="roles" element={<RoleManagement />} />
+              <Route path="settings" element={<h2 style={{ color: '#003366' }}>Setting</h2>} />
+              <Route path="notifications" element={<h2 style={{ color: '#003366' }}>Notifications</h2>} />
             </Routes>
           </Content>
         </Layout>
