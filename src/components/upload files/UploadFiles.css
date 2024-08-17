@@ -1,0 +1,36 @@
+.upload-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .custom-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .custom-upload .ant-upload {
+    border: none;
+    background: none; 
+  }
+  
+  .custom-upload .ant-upload-wrapper {
+    border: 2px dashed #d9d9d9; 
+    border-radius: 4px; 
+    padding: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .custom-upload .ant-btn {
+    border: none; 
+    background-color: #ffffff; 
+    padding: 10px 20px; 
+  }
+  
+  .custom-upload .ant-btn .anticon {
+    font-size: 16px; 
+  }
+  
