@@ -26,3 +26,19 @@ export const Files = async ()=>{
    
 }
 
+export const Delete = async (id:number)=>{
+    const token = localStorage.getItem("token");
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching roles:", error);
+    throw error;
+  }
+
+}
+

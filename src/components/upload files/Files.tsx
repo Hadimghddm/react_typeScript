@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row } from 'antd';
-import { Files } from '../../services/uploadFile'; 
+import { Card, Col, Row,message,Button } from 'antd';
+import { Files,Delete } from '../../services/uploadFile'; 
 
 
 interface FileData {
@@ -28,6 +28,17 @@ interface FileData {
       fetchFiles();
     }, []);
   
+    const handleDelete = async (id: number) => {
+      try {
+        await Delete(id);
+        setFiles(files.filter(file => file.id !== id));
+        message.success('File deleted successfully');
+      } catch (error) {
+        console.error('Failed to delete file', error);
+        message.error('Failed to delete file');
+      }
+    };
+  
     return (
       <Row gutter={[16, 16]}>
         {files.map((file) => (
@@ -37,10 +48,19 @@ interface FileData {
               cover={
                 <img
                   alt={file.name}
-                  src="D:\node.js\node.js\uploads\IMG_1719.PNG"// مسیر فایل از API response
+                  src={`http://localhost:4000/uploads/${file.path.split('\\').pop()}`}
                   style={{ height: 200, objectFit: 'cover' }}
                 />
               }
+              actions={[
+                <Button
+                  type="text"
+                  danger
+                  onClick={() => handleDelete(file.id)}
+                >
+                  Delete
+                </Button>,
+              ]}
             >
               <Card.Meta title={file.name} description={`Uploaded on: ${new Date(file.createdAt).toLocaleDateString()}`} />
             </Card>
@@ -51,4 +71,4 @@ interface FileData {
   };
   
   export default FilesList;
-
+ 

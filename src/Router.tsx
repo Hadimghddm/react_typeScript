@@ -10,6 +10,7 @@ import LoginOtpPage from "./pages/LoginOtpPage";
 import { AuthContextProvider } from "./context/auth/AuthContext";
 import UserManagement from "./components/user managment/UserManagement"; // Corrected import
 import RoleManagement from "./components/role managment/RoleManagement";
+import Category from "./components/category/CategoryManegment";
 
 const AppRouter: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const AppRouter: React.FC = () => {
           <Route path="/login-otp" element={<LoginOtpPage />} />
           <Route path="/users" element={<UserManagement />} /> 
           <Route path="/roles" element={<RoleManagement />} />
+          <Route path="/addCategory" element={<Category/>} />
         </Routes>
       </AuthContextProvider>
     </Router>
